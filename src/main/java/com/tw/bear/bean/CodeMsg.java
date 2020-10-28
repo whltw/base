@@ -15,9 +15,14 @@ public class CodeMsg {
     }
 
     public static final CodeMsg SUCCESS = new CodeMsg(0,"success");
+
+
+
     public static final CodeMsg DATA_ERROR = new CodeMsg(-1,"非法数据");
     public static final CodeMsg CPACHA_EMPTY = new CodeMsg(-2,"验证码不能为空");
-
+    public static final CodeMsg VALIDATE_ENTITY_ERROR = new CodeMsg(-3,"");
+    public static final CodeMsg SESSION_EXPIRED = new CodeMsg(-4,"会话失效，请重新登陆！");
+    public static final CodeMsg CPACHA_ERROR = new CodeMsg(-5,"验证码错误");
 
     //后台管理状态码
     public static final CodeMsg ADMIN_USERNAME_EMPTY = new CodeMsg(-2000,"用户名不能为空");
