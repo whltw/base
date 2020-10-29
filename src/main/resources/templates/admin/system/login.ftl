@@ -99,8 +99,9 @@
                 dataType:'json',
                 success:function(data){
                     if(data.code == 0){
-                       // window.location.href = 'index';
-                        alert(data.msg);
+                        window.location.href = '' +
+                            'index';
+                       // alert(data.msg);
                     }else{
                         showErrorMsg(data.msg);
                     }

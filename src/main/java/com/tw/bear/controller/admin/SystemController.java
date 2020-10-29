@@ -6,6 +6,8 @@ import com.tw.bear.bean.CodeMsg;
 import com.tw.bear.bean.Result;
 import com.tw.bear.config.SiteConfig;
 import com.tw.bear.service.admin.OperaterLogService;
+import com.tw.bear.service.admin.UserService;
+import com.tw.bear.util.StringUtil;
 import com.tw.bear.util.ValidateEntityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -33,18 +35,33 @@ public class SystemController {
     @Autowired
     private SiteConfig siteConfig;
 
+    @Autowired
+    private UserService userService;
+
     private Logger log = LoggerFactory.getLogger(SystemController.class);
 
     @Value("${spring.datasource.test-while-idle}")
     private String dataSourceUrl ;
 
-
+    /**
+     * 登陆前首页
+     * @param name
+     * @param model
+     * @return
+     */
     @RequestMapping(value="/login",method = RequestMethod.GET)
     public String index(String name, Model model){
         model.addAttribute("siteName",siteConfig.getSiteName());
         return "admin/system/login";
     }
 
+    /**
+     * 登陆校验
+     * @param request
+     * @param user
+     * @param cpacha
+     * @return
+     */
     @RequestMapping(value="/login",method = RequestMethod.POST)
     @ResponseBody
     public Result<Boolean> login(HttpServletRequest request,User user, String cpacha){
@@ -78,13 +95,34 @@ public class SystemController {
             return Result.error(CodeMsg.CPACHA_ERROR);
         }
         //表示验证码校验通过，查库校验用户密码
+        User byUsername = userService.findByUsername(user.getUsername());
+        if(byUsername == null){
+            return Result.error(CodeMsg.ADMIN_USER_NOT_EXIST);
+        }
+        //用户名存在，校验密码
+
+        if(!byUsername.getPassword().equals(user.getPassword())){
+            return Result.error(CodeMsg.ADMIN_PASSWORD_NOT_EXIST);
+        }
+        //校验通过，将登录信息放入session
+        request.getSession().setAttribute("user",byUsername);
+        OperaterLog operaterLog = new OperaterLog();
+        operaterLog.setOperator(byUsername.getUsername());
+        operaterLog.setContent("用户【"+byUsername.getUsername()+"】于【"+ StringUtil.getFormatterData(new Date())+"】登陆系统");
+
+        operaterLogService.save(operaterLog);
+        log.info("用户登陆成功,user="+byUsername.getUsername());
         return Result.success(true);
     }
 
-    @RequestMapping(value="/getLogById")
-    @ResponseBody
-    public OperaterLog index(Long id){
-       return operaterLogService.findById(id);
+    /**
+     * 登陆成功后主页
+     * @param model
+     * @return
+     */
+    @RequestMapping(value="/index")
+    public String index(Model model){
+       return "admin/system/index";
     }
 
     @RequestMapping(value="/getAllLog")

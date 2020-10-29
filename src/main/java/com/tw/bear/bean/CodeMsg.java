@@ -29,6 +29,13 @@ public class CodeMsg {
 
     public static final CodeMsg ADMIN_PASSWORD_EMPTY = new CodeMsg(-2001,"密码不能为空");
 
+
+    //登陆类错误码
+    public static final CodeMsg ADMIN_USER_NOT_EXIST = new CodeMsg(-2001,"该用户名不存在");
+    public static final CodeMsg ADMIN_PASSWORD_NOT_EXIST = new CodeMsg(-2001,"该密码错误");
+
+
+
     public int getCode() {
         return code;
     }
