@@ -43,4 +43,13 @@ public class OperaterLogService {
     public  void deleteAll(){
         operaterLogDao.deleteAll();
     }
+
+    /**
+     * 获取指定条数的日志
+     * @param size
+     * @return
+     */
+    public List<OperaterLog> findLastestLog(int size){
+        return operaterLogDao.findLastestLog(size);
+    }
 }

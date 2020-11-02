@@ -23,6 +23,7 @@ public class CodeMsg {
     public static final CodeMsg VALIDATE_ENTITY_ERROR = new CodeMsg(-3,"");
     public static final CodeMsg SESSION_EXPIRED = new CodeMsg(-4,"会话失效，请重新登陆！");
     public static final CodeMsg CPACHA_ERROR = new CodeMsg(-5,"验证码错误");
+    public static final CodeMsg USER_SESSION_EXPIRED = new CodeMsg(-6,"还未登陆或会话失效，请重新登陆");
 
     //后台管理状态码
     public static final CodeMsg ADMIN_USERNAME_EMPTY = new CodeMsg(-2000,"用户名不能为空");

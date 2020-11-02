@@ -1,6 +1,9 @@
 package com.tw.bear.admin.interceptor;
 
+import com.alibaba.fastjson.JSON;
+import com.tw.bear.bean.CodeMsg;
 import com.tw.bear.controller.admin.SystemController;
+import netscape.javascript.JSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -23,6 +26,15 @@ public class LoginInterceptor implements HandlerInterceptor {
         if(user == null){
             //用户未登陆或者session失效
             log.info("用户还未登陆或者session失效，重定向到登录页，当前url为"+request.getRequestURL());
+            String header = request.getHeader("X-Requested-With");
+            if("XMLHttpRequest".equals(header)){
+                //判断是ajax请求
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(JSON.toJSONString(CodeMsg.USER_SESSION_EXPIRED));
+                return  false;
+            }
+
+
             response.sendRedirect("/system/login");
             return false;
         }

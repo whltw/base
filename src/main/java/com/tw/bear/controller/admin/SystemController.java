@@ -122,7 +122,10 @@ public class SystemController {
      */
     @RequestMapping(value="/index")
     public String index(Model model){
-       return "admin/system/index";
+
+        model.addAttribute("siteName",siteConfig.getSiteName());
+        model.addAttribute("operaterLogs",operaterLogService.findLastestLog(10));
+        return "admin/system/index";
     }
 
     @RequestMapping(value="/getAllLog")
