@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private LoginInterceptor loginInterceptor;
 
-    List<String> exclude = Arrays.asList("/system/login","/admin/css/**",
+    List<String> exclude = Arrays.asList("/system/login","/admin/css/**","/admin/fonts/**",
             "/admin/js/**","/admin/images/**","/error","/cpacha/generate_cpacha","/admin/fonts/**");
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

@@ -1,7 +1,7 @@
 package com.tw.bear.controller.admin;
 
-import com.tw.bear.admin.entity.OperaterLog;
-import com.tw.bear.admin.entity.User;
+import com.tw.bear.entity.admin.OperaterLog;
+import com.tw.bear.entity.admin.User;
 import com.tw.bear.bean.CodeMsg;
 import com.tw.bear.bean.Result;
 import com.tw.bear.config.SiteConfig;

@@ -1,6 +1,6 @@
 package com.tw.bear.dao.admin;
 
-import com.tw.bear.admin.entity.OperaterLog;
+import com.tw.bear.entity.admin.OperaterLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

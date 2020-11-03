@@ -1,6 +1,6 @@
 package com.tw.bear.service.admin;
 
-import com.tw.bear.admin.entity.User;
+import com.tw.bear.entity.admin.User;
 import com.tw.bear.dao.admin.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

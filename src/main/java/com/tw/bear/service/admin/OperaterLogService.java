@@ -1,6 +1,6 @@
 package com.tw.bear.service.admin;
 
-import com.tw.bear.admin.entity.OperaterLog;
+import com.tw.bear.entity.admin.OperaterLog;
 import com.tw.bear.dao.admin.OperaterLogDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
-package com.tw.bear.admin.entity;
+package com.tw.bear.entity.admin;
 
 import com.tw.bear.annotion.ValidateEntity;
-import com.tw.bear.bean.CodeMsg;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;

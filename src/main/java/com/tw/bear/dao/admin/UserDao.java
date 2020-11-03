@@ -1,6 +1,6 @@
 package com.tw.bear.dao.admin;
 
-import com.tw.bear.admin.entity.User;
+import com.tw.bear.entity.admin.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

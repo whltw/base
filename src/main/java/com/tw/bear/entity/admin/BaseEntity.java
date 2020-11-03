@@ -1,7 +1,6 @@
-package com.tw.bear.admin.entity;
+package com.tw.bear.entity.admin;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
