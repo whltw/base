@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Menu extends BaseEntity{
     private static final long serialVersionUID = 1L;
 
-    @ValidateEntity(required = true,requiredLength =true,minLength = 4,maxLength = 18,errorRequiredMsg = "菜单名称不能为空",
+    @ValidateEntity(required = true,requiredLength =true,minLength = 2,maxLength = 18,errorRequiredMsg = "菜单名称不能为空",
             errorMaxLengthMsg = "菜单名称长度最大不能超过18",errorMinLengthMsg = "菜单名称长度最小不能小于1")
     @Column(name = "name",nullable = false,length = 18)
     private String name;

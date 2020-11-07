@@ -37,51 +37,49 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
+                            <div class="card-header"><h4>添加菜单</h4></div>
                             <div class="card-body">
 
-                                <form action="#!" method="post" class="row">
-                                    <div class="form-group col-md-12">
-                                        <label for="type">父分类</label>
-                                        <div class="form-controls">
-                                            <select name="type" class="form-control" id="type">
-                                                <option value="1">小说</option>
-                                                <option value="2">古籍</option>
-                                                <option value="3">专辑</option>
-                                                <option value="4">自传</option>
-                                            </select>
-                                        </div>
+                                <form action="add" id="menu-add-form" method="post" class="row">
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">上级分类</span>
+                                        <select name="parent.id" class="form-control" id="type">
+                                            <option value="">请选择上级分类</option>
+                                            <#if menus??>
+                                                <#list menus as menu>
+                                                        <option value="${menu.id}">${menu.name}</option>
+                                                </#list>
+                                            </#if>
+                                        </select>
+
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="title">菜单名称</label>
-                                        <input type="text" class="form-control required" id="name" name="name" value="" placeholder="请输入菜单名称" />
+
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">菜单名称</span>
+                                        <input type="text" class="form-control required" id="name" name="name" placeholder="请输入菜单名称" tips="请填写菜单名称" aria-describedby="sizing-addon3">
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="seo_keywords">菜单url</label>
-                                        <input type="text" class="form-control " id="url" name="url" value="" placeholder="请填写菜单url" />
+
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">菜单URL</span>
+                                        <input type="text" class="form-control" id="url" name="url" placeholder="请填写菜单url" aria-describedby="sizing-addon3">
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="seo_description">菜单icon</label>
-                                        <input type="text" class="form-control " id="icon" name="icon" value="" placeholder="请输入菜单icon" />
+
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon"> 菜单icon </span >
+                                        <input type="text" class="form-control required"  readonly="readonly" id="icon" name="icon" placeholder="请选择菜单icon" " tips="请选择菜单icon" aria-describedby="sizing-addon3">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary"  data-toggle="modal" data-target="#icon-panel" type="button">点击选择</button>
+                                        </span>
+                                    </div>
+
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">菜单排序</span>
+                                        <input type="number" class="form-control required" id="sort" name="sort" placeholder="" aria-describedby="sizing-addon3">
                                     </div>
 
 
                                     <div class="form-group col-md-12">
-                                        <label for="sort">排序</label>
-                                        <input type="text" class="form-control" id="sort" name="sort" value="0" />
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="status">状态</label>
-                                        <div class="clearfix">
-                                            <label class="lyear-radio radio-inline radio-primary">
-                                                <input type="radio" name="status" value="0"><span>禁用</span>
-                                            </label>
-                                            <label class="lyear-radio radio-inline radio-primary">
-                                                <input type="radio" name="status" value="1" checked><span>启用</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <button type="submit" class="btn btn-primary ajax-post" target-form="add-form">确 定</button>
+                                        <button type="button" class="btn btn-primary ajax-post" id="add-form-submit-btn">确 定</button>
                                         <button type="button" class="btn btn-default" onclick="javascript:history.back(-1);return false;">返 回</button>
                                     </div>
                                 </form>
@@ -99,6 +97,7 @@
     </div>
 </div>
 <#include "../common/foot.ftl"/>
+<#include "../common/icons.ftl"/>
 <script type="text/javascript" src="/admin/js/perfect-scrollbar.min.js"></script>
 <script type="text/javascript" src="/admin/js/main.min.js"></script>
 <!--图表插件-->
@@ -106,22 +105,27 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#submit-btn").click(function(){
-            if(!checkForm("login-form")){
+        //图标选择后的确认按钮事件
+        $("#confirm-icon-btn").click(function () {
+            getSelectedIcon();
+        });
+
+        //提交按钮监听事件
+        $("#add-form-submit-btn").click(function () {
+            if(!checkForm("menu-add-form"))
                 return;
-            }
-            var username = $("#username").val();
-            var password = $("#password").val();
-            var cpacha = $("#cpacha").val();
+            var data = $("#menu-add-form").serialize();
             $.ajax({
-                url:'/system/login',
+                url:'/menu/add',
                 type:'POST',
-                data:{username:username,password:password,cpacha:cpacha},
+                data:data,
                 dataType:'json',
                 success:function(data){
                     if(data.code == 0){
-                        // window.location.href = 'system/index';
-                        alert(data.msg);
+                        showSuccessMsg('菜单添加成功',function () {
+                            window.location.href = 'list';
+                        });
+
                     }else{
                         showErrorMsg(data.msg);
                     }
@@ -130,51 +134,18 @@
                     alert('网络错误!');
                 }
             });
+
         });
     });
-    $(document).ready(function(e) {
-        var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),
-            $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );
 
-        var $dashChartBarsData = {
-            labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
-            datasets: [
-                {
-                    label: '注册用户',
-                    borderWidth: 1,
-                    borderColor: 'rgba(0,0,0,0)',
-                    backgroundColor: 'rgba(51,202,185,0.5)',
-                    hoverBackgroundColor: "rgba(51,202,185,0.7)",
-                    hoverBorderColor: "rgba(0,0,0,0)",
-                    data: [2500, 1500, 1200, 3200, 4800, 3500, 1500]
-                }
-            ]
-        };
-        var $dashChartLinesData = {
-            labels: ['2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014'],
-            datasets: [
-                {
-                    label: '交易资金',
-                    data: [20, 25, 40, 30, 45, 40, 55, 40, 48, 40, 42, 50],
-                    borderColor: '#358ed7',
-                    backgroundColor: 'rgba(53, 142, 215, 0.175)',
-                    borderWidth: 1,
-                    fill: false,
-                    lineTension: 0.5
-                }
-            ]
-        };
+    function getSelectedIcon() {
+        var iconContent = $(".selected-icon").attr('val');
+        $("#icon").val(iconContent);
+        $("#icon-panel").modal('hide');
 
-        new Chart($dashChartBarsCnt, {
-            type: 'bar',
-            data: $dashChartBarsData
-        });
 
-        var myLineChart = new Chart($dashChartLinesCnt, {
-            type: 'line',
-            data: $dashChartLinesData,
-        });
-    });
+
+    }
 </script>
 </body>
 </html>

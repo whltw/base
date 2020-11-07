@@ -96,7 +96,7 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>操作人</th>
+                                            <th width="200px">操作人</th>
                                             <th>操作内容</th>
                                             <th>操作时间</th>
 

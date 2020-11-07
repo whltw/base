@@ -32,9 +32,12 @@ public class CodeMsg {
 
 
     //登陆类错误码
-    public static final CodeMsg ADMIN_USER_NOT_EXIST = new CodeMsg(-2001,"该用户名不存在");
-    public static final CodeMsg ADMIN_PASSWORD_NOT_EXIST = new CodeMsg(-2001,"该密码错误");
+    public static final CodeMsg ADMIN_USER_NOT_EXIST = new CodeMsg(-3001,"该用户名不存在");
+    public static final CodeMsg ADMIN_PASSWORD_NOT_EXIST = new CodeMsg(-3001,"该密码错误");
 
+    //菜单管理密码错误
+    public static final CodeMsg ADMIN__MENU_ADD_ERROR = new CodeMsg(-4000,"菜单添加失败,请联系管理员!");
+    public static final CodeMsg ADMIN_MENU_EDIT_ERROR = new CodeMsg(-3001,"菜单编辑失败,请联系管理员!");
 
 
     public int getCode() {

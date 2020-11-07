@@ -52,4 +52,16 @@ public class OperaterLogService {
     public List<OperaterLog> findLastestLog(int size){
         return operaterLogDao.findLastestLog(size);
     }
+
+    /**
+     * 操作日志添加
+     * @param operator
+     * @param content
+     */
+    public void add(String operator,String content){
+        OperaterLog operaterLog = new OperaterLog();
+        operaterLog.setOperator(operator);
+        operaterLog.setContent(content);
+        save(operaterLog);
+    }
 }

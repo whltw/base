@@ -13,7 +13,7 @@ public class OperaterLog extends BaseEntity {
     @Column(name = "operator",nullable=false,length = 18)
     private String operator; //操作者
 
-    @Column(name = "content",nullable=false,length = 128)
+    @Column(name = "content",nullable=false,length = 1024)
     private  String content;//操作内容
 
 
