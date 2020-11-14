@@ -37,9 +37,10 @@ public class CodeMsg {
 
     //菜单管理密码错误
     public static final CodeMsg ADMIN__MENU_ADD_ERROR = new CodeMsg(-4000,"菜单添加失败,请联系管理员!");
-    public static final CodeMsg ADMIN_MENU_EDIT_ERROR = new CodeMsg(-3001,"菜单编辑失败,请联系管理员!");
-
-
+    public static final CodeMsg ADMIN_MENU_EDIT_ERROR = new CodeMsg(-4001,"菜单编辑失败,请联系管理员!");
+    public static final CodeMsg ADMIN_MENU_ID_EMPTY  = new CodeMsg(-4002,"菜单id不能为空,请联系管理员!");
+    public static final CodeMsg ADMIN_MENU_ID_ERROR  = new CodeMsg(-4003,"菜单id不能为空,请联系管理员!");
+    public static final CodeMsg ADMIN_MENU_DELETE_ERROR  = new CodeMsg(-4004,"菜单有子菜单,请先删除子菜单!");
     public int getCode() {
         return code;
     }

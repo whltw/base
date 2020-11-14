@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>${siteName!""}菜单管理-菜单添加</title>
+    <title>${siteName!""}菜单管理-编辑菜单</title>
     <#include "../common/header.ftl"/>
 
 
@@ -41,17 +41,18 @@
                             <div class="card-body">
 
                                 <form action="add" id="menu-add-form" method="post" class="row">
+                                    <input type="hidden" name="id" id ="id" value="${menu.id}">
                                     <div class="input-group input-group m-b-10">
                                         <span class="input-group-addon">上级分类</span>
                                         <select name="parent.id" class="form-control" id="type">
                                             <option value="">请选择上级分类</option>
                                             <#if topMenus??>
                                                 <#list topMenus as topMenu>
-                                                    <option value="${topMenu.id}" style="font-weight:bold">${topMenu.name}</option>
+                                                    <option value="${topMenu.id}" style="font-weight:bold" <#if menu.parent??>  <#if menu.parent.id == topMenu.id> selected</#if> </#if>>${topMenu.name}</option>
                                                     <#if secondMenus??>
                                                         <#list secondMenus as secondMenu>
                                                             <#if secondMenu.parent.id == topMenu.id>
-                                                                <option value="${secondMenu.id}">&nbsp;&nbsp;&nbsp;&nbsp;${secondMenu.name}</option>
+                                                                <option value="${secondMenu.id}" <#if menu.parent??>  <#if menu.parent.id == secondMenu.id> selected</#if> </#if>   >&nbsp;&nbsp;&nbsp;&nbsp;${secondMenu.name}</option>
                                                             </#if>
                                                         </#list>
                                                     </#if>
@@ -64,17 +65,17 @@
 
                                     <div class="input-group input-group m-b-10">
                                         <span class="input-group-addon">菜单名称</span>
-                                        <input type="text" class="form-control required" id="name" name="name" placeholder="请输入菜单名称" tips="请填写菜单名称" aria-describedby="sizing-addon3">
+                                        <input type="text" class="form-control required" id="name" name="name" value="${menu.name!""}" placeholder="请输入菜单名称" tips="请填写菜单名称" aria-describedby="sizing-addon3">
                                     </div>
 
                                     <div class="input-group input-group m-b-10">
                                         <span class="input-group-addon">菜单URL</span>
-                                        <input type="text" class="form-control" id="url" name="url" placeholder="请填写菜单url" aria-describedby="sizing-addon3">
+                                        <input type="text" class="form-control" id="url" name="url" value="${menu.url!""}" placeholder="请填写菜单url" aria-describedby="sizing-addon3">
                                     </div>
 
                                     <div class="input-group input-group m-b-10">
                                         <span class="input-group-addon"> 菜单icon </span >
-                                        <input type="text" class="form-control required"  readonly="readonly" id="icon" name="icon" placeholder="请选择菜单icon" " tips="请选择菜单icon" aria-describedby="sizing-addon3">
+                                        <input type="text" class="form-control required"  readonly="readonly" id="icon" name="icon" value="${menu.icon!""}"placeholder="请选择菜单icon" " tips="请选择菜单icon" aria-describedby="sizing-addon3">
                                         <span class="input-group-btn">
                                             <button class="btn btn-primary"  data-toggle="modal" data-target="#icon-panel" type="button">点击选择</button>
                                         </span>
@@ -82,7 +83,7 @@
 
                                     <div class="input-group input-group m-b-10">
                                         <span class="input-group-addon">菜单排序</span>
-                                        <input type="number" class="form-control required" id="sort" name="sort" placeholder="" aria-describedby="sizing-addon3" tips="菜单排序不能为空">
+                                        <input type="number" class="form-control required" id="sort" name="sort" value="${menu.sort!""}" placeholder="" aria-describedby="sizing-addon3" tips="菜单排序不能为空">
                                     </div>
 
 
@@ -124,13 +125,13 @@
                 return;
             var data = $("#menu-add-form").serialize();
             $.ajax({
-                url:'/menu/add',
+                url:'/menu/edit',
                 type:'POST',
                 data:data,
                 dataType:'json',
                 success:function(data){
                     if(data.code == 0){
-                        showSuccessMsg('菜单添加成功',function () {
+                        showSuccessMsg('菜单更新成功',function () {
                             window.location.href = 'list';
                         });
 
@@ -151,9 +152,8 @@
         $("#icon").val(iconContent);
         $("#icon-panel").modal('hide');
 
-
-
     }
+
 </script>
 </body>
 </html>

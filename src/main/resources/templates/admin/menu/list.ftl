@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>${siteName!""}菜单管理-${title!""}</title>
     <#include "../common/header.ftl"/>
-
+    <style>
+        td{
+            vertical-align:middle;
+        }
+    </style>
 
 </head>
 
@@ -33,7 +37,6 @@
         <main class="lyear-layout-content">
 
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -58,7 +61,10 @@
                                 </form>
                                 <div class="toolbar-btn-action">
                                     <a class="btn btn-primary m-r-5" href="/menu/add"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-primary m-r-5" href="javascript:edit()"><i class="mdi mdi-grease-pencil"></i> 编辑</a>
+                                    <a class="btn btn-primary m-r-5" href="javascript:del()"><i class="mdi mdi-delete"></i> 删除</a>
                                 </div>
+
                             </div>
                             <div class="card-body">
 
@@ -71,92 +77,89 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>编号</th>
-                                            <th>标题</th>
-                                            <th>书籍</th>
-                                            <th>作者</th>
-                                            <th>阅读量</th>
-                                            <th>状态</th>
-                                            <th>操作</th>
+                                            <th>菜单名称</th>
+                                            <th>菜单url</th>
+                                            <th>菜单icon </th>
+                                            <th>菜单排序</th>
+                                            <th>添加时间</th>
+<#--                                            <th>操作</th>-->
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td><b>第01章 天涯思君不可忘</b></td>
-                                            <td>《倚天屠龙记》</td>
-                                            <td>金庸</td>
-                                            <td>36</td>
-                                            <td><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td>|-----二级菜单1</td>
-                                            <td>《倚天屠龙记》</td>
-                                            <td>金庸</td>
-                                            <td>36</td>
-                                            <td><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td style="padding-left:45px;">|-----三级菜单1</td>
-                                            <td>《倚天屠龙记》</td>
-                                            <td>金庸</td>
-                                            <td>36</td>
-                                            <td><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <label class="lyear-checkbox checkbox-primary">
-                                                    <input type="checkbox" name="ids[]" value="1"><span></span>
-                                                </label>
-                                            </td>
-                                            <td>1</td>
-                                            <td>|-----二级菜单2</td>
-                                            <td>《倚天屠龙记》</td>
-                                            <td>金庸</td>
-                                            <td>36</td>
-                                            <td><font class="text-success">正常</font></td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <a class="btn btn-xs btn-default" href="#!" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>
-                                                    <a class="btn btn-xs btn-default" href="#!" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <#if topMenus ??>
+                                            <#list topMenus as topMenu>
+                                                <tr>
+                                                    <td style="vertical-align:middle;">
+                                                        <label class="lyear-checkbox checkbox-primary">
+                                                            <input type="checkbox" name="ids[]" value="${topMenu.id}"><span></span>
+                                                        </label>
+                                                    </td>
+                                                    <td style="vertical-align:middle;"><b>${topMenu.name}</b></td>
+                                                    <td style="vertical-align:middle;">${topMenu.url}</td>
+                                                    <td style="vertical-align:middle;"><i style="font-size:22px;" class="mdi ${topMenu.icon}" title="${topMenu.icon}"></i></td>
+                                                    <td style="vertical-align:middle;">${topMenu.sort}</td>
+                                                    <td><font class="text-success">${topMenu.createTime}</font></td>
+<#--                                                    <td>-->
+<#--                                                        <div class="btn-group">-->
+<#--                                                            <a class="btn btn-xs btn-default" href="javascript:edit(${topMenu.id})" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>-->
+<#--                                                            <a class="btn btn-xs btn-default" href="javascript:del(${topMenu.id})" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>-->
+<#--                                                        </div>-->
+<#--                                                    </td>-->
+                                                </tr>
+                                                <#-- 二级菜单-->
+                                                <#if secondMenus ??>
+                                                    <#list secondMenus as secondMenu>
+                                                        <#if secondMenu.parent.id == topMenu.id>
+                                                            <tr>
+                                                                <td style="vertical-align:middle;">
+                                                                    <label class="lyear-checkbox checkbox-primary">
+                                                                        <input type="checkbox" name="ids[]" value="${secondMenu.id}"><span></span>
+                                                                    </label>
+                                                                </td>
+                                                                <td style="padding-left:25px;"><b>${secondMenu.name}</b></td>
+                                                                <td>${secondMenu.url}</td>
+                                                                <td><i style="font-size:22px;" class="mdi ${secondMenu.icon}" title="${secondMenu.icon}"></i></td>
+                                                                <td>${secondMenu.sort}</td>
+                                                                <td><font class="text-success">${secondMenu.createTime}</font></td>
+<#--                                                                <td>-->
+<#--                                                                    <div class="btn-group">-->
+<#--                                                                        <a class="btn btn-xs btn-default" href="edit?id=${secondMenu.id}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>-->
+<#--                                                                        <a class="btn btn-xs btn-default" href="javascript:del(${secondMenu.id})" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>-->
+<#--                                                                    </div>-->
+<#--                                                                </td>-->
+                                                            </tr>
+                                                            <#--三级菜单-->
+                                                            <#if thirdMenus ??>
+                                                                <#list thirdMenus as thirdMenu>
+                                                                    <#if thirdMenu.parent.id == secondMenu.id>
+                                                                        <tr>
+                                                                            <td style="vertical-align:middle;">
+                                                                                <label class="lyear-checkbox checkbox-primary">
+                                                                                    <input type="checkbox" name="ids[]" value="${thirdMenu.id}"><span></span>
+                                                                                </label>
+                                                                            </td>
+                                                                            <td style="padding-left:45px;"><b>${thirdMenu. name}</b></td>
+                                                                            <td>${thirdMenu.url}</td>
+                                                                            <td><i style="font-size:22px;" class="mdi ${thirdMenu.icon}" title="${thirdMenu.icon}"></i></td>
+                                                                            <td>${thirdMenu.sort}</td>
+                                                                            <td><font class="text-success">${thirdMenu.createTime}</font></td>
+<#--                                                                            <td>-->
+<#--                                                                                <div class="btn-group">-->
+<#--                                                                                    <a class="btn btn-xs btn-default" href="edit?id=${thirdMenu.id}" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>-->
+<#--                                                                                    <a class="btn btn-xs btn-default" href="javascript:del(${thirdMenu.id})" title="删除" data-toggle="tooltip"><i class="mdi mdi-window-close"></i></a>-->
+<#--                                                                                </div>-->
+<#--                                                                            </td>-->
+                                                                        </tr>
+                                                                    </#if>
+                                                                </#list>
+                                                            </#if>
+
+                                                        </#if>
+                                                    </#list>
+                                                </#if>
+
+                                            </#list>
+                                        </#if>
                                         </tbody>
                                     </table>
                                 </div>
@@ -215,6 +218,64 @@
             });
         });
     });
+
+    function del(){
+        if($("input[type='checkbox']:checked").length != 1){
+            showWarningMsg("请选择一条数据进行删除！");
+            return;
+        }
+        var id =$("input[type='checkbox']:checked").val();
+        $.confirm({
+            title: '确定删除？',
+            content: '删除后数据不可恢复，请慎重！',
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    action: function(){
+                        deleteReq(id);
+                    }
+                },
+                cancel: {
+                    text: '关闭',
+                    action: function(){
+
+                    }
+                }
+            }
+        });
+
+    }
+
+    //方法
+    function deleteReq(id){
+        $.ajax({
+            url:"/menu/delete",
+            type:'POST',
+            data:{id:id},
+            dataType:'json',
+            success:function(data){
+                if(data.code == 0){
+                    showSuccessMsg('菜单删除成功!',function(){
+                        $("input[type='checkbox']:checked").parents("tr").remove();
+                    })
+                }else{
+                    showErrorMsg(data.msg);
+                }
+            },
+            error:function(data){
+                alert('网络错误!');
+            }
+        });
+    }
+
+    function edit(){
+        if($("input[type='checkbox']:checked").length != 1){
+            showWarningMsg("请选择一条数据进行编辑！");
+            return;
+        }
+        window.location.href = "edit?id="+$("input[type='checkbox']:checked").val();
+    }
+
     $(document).ready(function(e) {
         var $dashChartBarsCnt  = jQuery( '.js-chartjs-bars' )[0].getContext( '2d' ),
             $dashChartLinesCnt = jQuery( '.js-chartjs-lines' )[0].getContext( '2d' );

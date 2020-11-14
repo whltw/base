@@ -30,4 +30,21 @@ public class MenuService {
     public List<Menu> findAll(){
         return menuDao.findAll();
     }
+
+    /**
+     * 根据id获取菜单
+     * @param id
+     * @return
+     */
+    public Menu findOne(Long id){
+       return menuDao.getOne(id);
+    }
+
+    /**
+     * 根据id删除菜单
+     */
+
+    public void delete(Long id){
+        menuDao.deleteById(id);
+    }
 }
