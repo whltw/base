@@ -5,6 +5,7 @@
             <a href="javascript:void(0)"><i class="mdi mdi-palette"></i> 系统设置</a>
             <ul class="nav nav-subnav">
                 <li class="active"> <a href="/menu/list">菜单管理</a> </li>
+                <li class="active"> <a href="/role/list">角色管理</a> </li>
 
             </ul>
         </li>
