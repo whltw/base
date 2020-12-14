@@ -2,6 +2,7 @@ package com.tw.bear.controller.admin;
 
 import com.alibaba.fastjson.JSONArray;
 import com.tw.bear.bean.CodeMsg;
+import com.tw.bear.bean.PageBean;
 import com.tw.bear.bean.Result;
 import com.tw.bear.entity.admin.Menu;
 import com.tw.bear.entity.admin.OperaterLog;
@@ -44,10 +45,12 @@ public class RoleController {
     private RoleService roleService;
 
     @RequestMapping(value="/list",method = RequestMethod.GET)
-    public String list(Model model){
+    public String list(Model model, Role role, PageBean<Role> pageBean){
         List<Role> all = roleService.findAll();
         model.addAttribute("roles",all);
         model.addAttribute("title","角色列表");
+        pageBean.setTotal(31);
+        model.addAttribute("pageBean",pageBean);
         return"admin/role/list";
     }
 

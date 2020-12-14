@@ -2,6 +2,8 @@ package com.tw.bear.bean;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -16,7 +18,7 @@ public class PageBean<T> {
 
     private int showPageSize = 5; //显示在页面可快速跳转的页码个数
 
-    private List<Integer> currentShowPage; //当前显示在页面快速跳转的页码
+    private List<Integer> currentShowPage = new ArrayList<Integer>(); //当前显示在页面快速跳转的页码
 
     public int getCurrentPage() {
         return currentPage;
@@ -59,14 +61,10 @@ public class PageBean<T> {
     }
 
     public List<Integer> getCurrentShowPage() {
-        //总数不超过每页显示数，公有一页
-        if(total<=pageSize){
-            return currentShowPage;
-        }
         //向后显示页面
-        for(int i=currentPage;i<total;i++){
+        for(int i=currentPage;i<=total;i++){
             currentShowPage.add(i);
-            if(i>total)
+            if(i>=total)
                 break;
             if(i>=(showPageSize+currentPage)){
                 break;
@@ -76,17 +74,13 @@ public class PageBean<T> {
         }
 
         //向前显示页面
-        for(int i=currentPage-1;i > 0;i--){
-            currentShowPage.add(i);
-            if(i < 1)
-                break;
-            if(i<=(showPageSize-currentPage)){
-                break;
-            }
+        for(int i=1;currentPage-i > 0;i++){
+            currentShowPage.add(currentPage-i);
 
-
+            if(i >4)
+                break;
         }
-
+        Collections.sort(currentShowPage);
         return currentShowPage;
     }
 
