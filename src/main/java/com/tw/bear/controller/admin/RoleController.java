@@ -46,10 +46,10 @@ public class RoleController {
 
     @RequestMapping(value="/list",method = RequestMethod.GET)
     public String list(Model model, Role role, PageBean<Role> pageBean){
-        List<Role> all = roleService.findAll();
-        model.addAttribute("roles",all);
+        PageBean<Role> all = roleService.findByName(role,pageBean);
+        model.addAttribute("pageBean",all);
         model.addAttribute("title","角色列表");
-        pageBean.setTotal(31);
+        model.addAttribute("name",role.getName());
         model.addAttribute("pageBean",pageBean);
         return"admin/role/list";
     }
@@ -91,7 +91,12 @@ public class RoleController {
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     @ResponseBody
     public Result<Boolean> delete(HttpServletRequest request,@RequestParam(name="id",required=true)Long id){
+        try {
             roleService.delete(id);
+        }catch (Exception e){
+            log.error(e.getStackTrace().toString());
+            return Result.error(CodeMsg.ADMIN__ROLE_DELETE_ERROR);
+        }
         //保存操作成功,记录日志
         User user = (User) request.getSession().getAttribute("user");
         operaterLogService.add(user.getUsername(),"删除角色成功，角色id为【"+id+"】");

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>${siteName!""}角色管理-角色编辑</title>
+    <title>${siteName!""}用户管理-用户添加</title>
     <#include "../common/header.ftl"/>
 
 
@@ -37,16 +37,29 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-header"><h4>编辑角色</h4></div>
+                            <div class="card-header"><h4>添加用户</h4></div>
                             <div class="card-body">
 
                                 <form action="add" id="role-add-form" method="post" class="row">
-                                    <input type="hidden" name="id" value="${role.id!""}">
+
                                     <div class="input-group input-group m-b-10">
-                                        <span class="input-group-addon">角色名称</span>
-                                        <input type="text" class="form-control required" id="name" name="name" value="${role.name}" placeholder="请输入菜色名称" tips="请填写角色名称" aria-describedby="sizing-addon3">
+                                        <span class="input-group-addon">用户名</span>
+                                        <input type="text" class="form-control required" id="username" name="username" placeholder="请输入用户名" tips="请填写用户名称" aria-describedby="sizing-addon3">
                                     </div>
 
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">密码</span>
+                                        <input type="password" class="form-control required" id="password" name="password" placeholder="请输入密码" tips="请填写用户密码" aria-describedby="sizing-addon3">
+                                    </div>
+
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">所属角色</span>
+                                        <select name="parent.id" class="form-control" id="type">
+                                            <#list roles as role>
+                                                <option value="${role.id}">${role.name}</option>
+                                            </#list>
+                                        </select>
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
@@ -118,19 +131,19 @@
                                     <div class="input-group input-group m-b-10">
                                         状态&nbsp;&nbsp;
                                         <label class="lyear-radio radio-inline radio-primary">
-                                            <input type="radio" name="status" value="1" <#if role.status == 1>checked</#if>>
+                                            <input type="radio" name="status" value="1" checked="">
                                             <span>启用</span>
                                         </label>
 
-                                        <label class="lyear-radio radio-inline radio-primary">
-                                            <input type="radio" name="status"value="2" <#if role.status == 0>checked</#if>>
+                                        <label class="lyear-radio radio-inline radio-primary"/>
+                                            <input type="radio" name="status"value="0">
                                             <span>不启用</span>
                                         </label>
                                     </div>
 
                                     <div class="input-group input-group m-b-10">
-                                        <span class="input-group-addon">备注</span>
-                                        <input type="text" class="form-control" id="remark" name="remark" placeholder="" value="${role.remark}" aria-describedby="sizing-addon3">
+                                            <span class="input-group-addon">备注</span>
+                                        <input type="text" class="form-control" id="remark" name="remark" placeholder="" aria-describedby="sizing-addon3"/>
                                     </div>
 
 
@@ -172,13 +185,13 @@
                 return;
             var data = $("#role-add-form").serialize();
             $.ajax({
-                url:'/role/edit',
+                url:'/role/add',
                 type:'POST',
                 data:data,
                 dataType:'json',
                 success:function(data){
                     if(data.code == 0){
-                        showSuccessMsg('角色编辑成功',function () {
+                        showSuccessMsg('用户添加成功',function () {
                             window.location.href = 'list';
                         });
 
@@ -227,16 +240,6 @@
         });
     });
 
-    //所选用户的角色权限
-    var authorities = ${authorities!"[]"};
-    //遍历角色权限，将已有的权限进行选中
-    $("input[type='checkbox']").each(function(i,e){
-        for(var i=0; i < authorities.length; i++){
-            if(authorities[i].id == $(e).val()){
-                $(e).prop('checked',true);
-            }
-        }
-    });
 
 </script>
 </body>

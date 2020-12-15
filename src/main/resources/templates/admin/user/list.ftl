@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>${siteName!""}角色管理-${title!""}</title>
+    <title>${siteName!""}用户管理-${title!""}</title>
     <#include "../common/header.ftl"/>
     <style>
         td{
@@ -45,20 +45,20 @@
                                     <div class="input-group">
                                         <div class="input-group-btn">
                                             <button class="btn btn-default dropdown-toggle" id="search-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
-                                                名称 <span class="caret"></span>
+                                                用户名 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="title">名称</a> </li>
+                                                <li> <a tabindex="-1" href="javascript:void(0)" data-field="title">用户名</a> </li>
                                             </ul>
                                         </div>
-                                        <input type="text" class="form-control" value="${name!""}" name="name" placeholder="请输入名称">
+                                        <input type="text" class="form-control" value="${username!""}" name="username" placeholder="请输入用户名">
                                         <span class="input-group-btn">
                                              <button class="btn btn-primary" type="submit">搜索</button>
                                          </span>
                                     </div>
                                 </form>
                                 <div class="toolbar-btn-action">
-                                    <a class="btn btn-primary m-r-5" href="/role/add"><i class="mdi mdi-plus"></i> 新增</a>
+                                    <a class="btn btn-primary m-r-5" href="/user/add"><i class="mdi mdi-plus"></i> 新增</a>
                                     <a class="btn btn-primary m-r-5" href="javascript:edit()"><i class="mdi mdi-grease-pencil"></i> 编辑</a>
                                     <a class="btn btn-primary m-r-5" href="javascript:del()"><i class="mdi mdi-delete"></i> 删除</a>
                                 </div>
@@ -75,33 +75,50 @@
                                                     <input type="checkbox" id="check-all"><span></span>
                                                 </label>
                                             </th>
-                                            <th>角色名称</th>
-                                            <th>角色状态</th>
-                                            <th>角色备注</th>
+                                            <th>头像</th>
+                                            <th>用户名</th>
+                                            <th>角色</th>
+                                            <th>状态</th>
+                                            <th>性别</th>
+                                            <th>手机号</th>
+                                            <th>邮箱</th>
                                             <th>添加时间</th>
 <#--                                            <th>操作</th>-->
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <#if pageBean.content ??>
-                                            <#list pageBean.content as role>
+                                            <#list pageBean.content as user>
                                                 <tr>
                                                     <td style="vertical-align:middle;">
                                                         <label class="lyear-checkbox checkbox-primary">
-                                                            <input type="checkbox" name="ids[]" value="${role.id}"><span></span>
+                                                            <input type="checkbox" name="ids[]" value="${user.id}"><span></span>
                                                         </label>
                                                     </td>
-                                                    <td style="vertical-align:middle;"><b>${role.name}</b></td>
+                                                    <td style="vertical-align:middle;"><b>${user.headPic}</b></td>
+                                                    <td style="vertical-align:middle;"><b>${user.username}</b></td>
+                                                    <td style="vertical-align:middle;"><b>${user.role.name}</b></td>
                                                     <td style="vertical-align:middle;">
-                                                        <#if role.status == 1>
+                                                        <#if user.status == 1>
                                                             <font class="text-success">正常</font>
                                                         <#else>
                                                             <font class="text-warning">冻结</font>
                                                         </#if>
                                                     </td>
 
-                                                    <td style="vertical-align:middle;">${role.remark}</td>
-                                                    <td><font class="text-success">${role.createTime}</font></td>
+                                                    <td style="vertical-align:middle;">
+                                                        <#if user.sex == 1>
+                                                            <font class="text-success">男</font>
+                                                        <#elseif user.sex == 2>
+                                                            <font class="text-success">女</font>
+                                                        <#else>
+                                                            <font class="text-warning">未知</font>
+                                                        </#if>
+                                                    </td>
+
+                                                    <td style="vertical-align:middle;">${user.mobile}</td>
+                                                    <td style="vertical-align:middle;">${user.email}</td>
+                                                    <td><font class="text-success">${user.createTime}</font></td>
                                                     <#--                                                    <td>-->
                                                     <#--                                                        <div class="btn-group">-->
                                                     <#--                                                            <a class="btn btn-xs btn-default" href="javascript:edit(${topMenu.id})" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>-->
@@ -120,20 +137,20 @@
                                         <#if pageBean.currentPage == 1>
                                             <li class="disabled"><span>«</span></li>
                                         <#else>
-                                            <li><a href="list?name=${name!""}&currentPage=1">«</a></li>
+                                            <li><a href="list?name=${username!""}&currentPage=1">«</a></li>
                                         </#if>
                                         <#list pageBean.currentShowPage as showPage>
                                             <#if pageBean.currentPage == showPage>
                                                 <li class="active"><span>${showPage}</span></li>
                                             <#else>
-                                                <li><a href="list?name=${name!""}&currentPage=${showPage}">${showPage}</a></li>
+                                                <li><a href="list?name=${username!""}&currentPage=${showPage}">${showPage}</a></li>
                                             </#if>
                                         </#list>
 
                                         <#if pageBean.currentPage == pageBean.totalPage>
                                             <li class="disabled"><span>»</span></li>
                                         <#else>
-                                            <li><a href="list?name=${name!""}&currentPage=${pageBean.totalPage}">»</a></li>
+                                            <li><a href="list?name=${username!""}&currentPage=${pageBean.totalPage}">»</a></li>
                                         </#if>
                                         <li><span>共${pageBean.totalPage}页,${pageBean.total}条数据</span></li>
                                     </ul>
@@ -222,7 +239,7 @@
             dataType:'json',
             success:function(data){
                 if(data.code == 0){
-                    showSuccessMsg('角色删除成功!',function(){
+                    showSuccessMsg('用户删除成功!',function(){
                         $("input[type='checkbox']:checked").parents("tr").remove();
                     })
                 }else{

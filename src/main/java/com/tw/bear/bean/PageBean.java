@@ -12,13 +12,23 @@ public class PageBean<T> {
 
     private int pageSize = 10; //每页显示数量
 
-    private long total = 0;  //总页数
+    private long total = 0;  //总数量
+
+    private long totalPage; //总页数
 
     private List<T> content; //查询的数据
 
-    private int showPageSize = 5; //显示在页面可快速跳转的页码个数
+    private int showPageSize = 3; //显示在页面可快速跳转的页码个数
 
     private List<Integer> currentShowPage = new ArrayList<Integer>(); //当前显示在页面快速跳转的页码
+
+    public long getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(long totalPage) {
+        this.totalPage = totalPage;
+    }
 
     public int getCurrentPage() {
         return currentPage;
@@ -62,9 +72,9 @@ public class PageBean<T> {
 
     public List<Integer> getCurrentShowPage() {
         //向后显示页面
-        for(int i=currentPage;i<=total;i++){
+        for(int i=currentPage;i<=totalPage;i++){
             currentShowPage.add(i);
-            if(i>=total)
+            if(i>=totalPage)
                 break;
             if(i>=(showPageSize+currentPage)){
                 break;
@@ -77,7 +87,7 @@ public class PageBean<T> {
         for(int i=1;currentPage-i > 0;i++){
             currentShowPage.add(currentPage-i);
 
-            if(i >4)
+            if(i >showPageSize-1)
                 break;
         }
         Collections.sort(currentShowPage);
