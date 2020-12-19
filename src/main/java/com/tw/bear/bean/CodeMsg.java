@@ -24,6 +24,8 @@ public class CodeMsg {
     public static final CodeMsg SESSION_EXPIRED = new CodeMsg(-4,"会话失效，请重新登陆！");
     public static final CodeMsg CPACHA_ERROR = new CodeMsg(-5,"验证码错误");
     public static final CodeMsg USER_SESSION_EXPIRED = new CodeMsg(-6,"还未登陆或会话失效，请重新登陆");
+    public static final CodeMsg UPLOAD_PHOTO_SUFFIX_ERROR = new CodeMsg(-7,"图片上传后缀不正确，请重新上传");
+    public static final CodeMsg UPLOAD_PHOTO_ERROR  = new CodeMsg(-8,"图片上传错误");
 
     //后台管理状态码
     public static final CodeMsg ADMIN_USERNAME_EMPTY = new CodeMsg(-2000,"用户名不能为空");

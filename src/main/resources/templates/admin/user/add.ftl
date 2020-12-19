@@ -42,13 +42,31 @@
 
                                 <form action="add" id="role-add-form" method="post" class="row">
 
+                                    <div class="form-group col-md-12">
+                                        <label>图像上传</label>
+                                        <div class="form-controls">
+
+                                            <ul class="list-inline clearfix lyear-uploads-pic">
+                                                <li class="col-xs-4 col-sm-3 col-md-2">
+                                                    <figure>
+                                                        <img src="/admin/images/default-head.jpg" id="show-picture-img" alt=默认图像>
+                                                    </figure>
+                                                </li>
+                                                <input type="hidden" name="headPic" id="headPic">
+                                                <input type="file" id="select-file" name="select-file" style="display: none;" onchange="upload()">
+                                                <li class="col-xs-4 col-sm-3 col-md-2">
+                                                    <a class="pic-add" id="add-pic-btn" href="javascript:void(0)" id="upload-btn" title="点击上传"></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <div class="input-group input-group m-b-10">
-                                        <span class="input-group-addon">用户名</span>
+                                        <span class="input-group-addon">登录名称</span>
                                         <input type="text" class="form-control required" id="username" name="username" placeholder="请输入用户名" tips="请填写用户名称" aria-describedby="sizing-addon3">
                                     </div>
 
                                     <div class="input-group input-group m-b-10">
-                                        <span class="input-group-addon">密码</span>
+                                        <span class="input-group-addon">登录密码</span>
                                         <input type="password" class="form-control required" id="password" name="password" placeholder="请输入密码" tips="请填写用户密码" aria-describedby="sizing-addon3">
                                     </div>
 
@@ -60,91 +78,47 @@
                                             </#list>
                                         </select>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-
-                                            <tr>
-                                                <th>
-                                                    <label class="">
-                                                        <span> 权限选择</span>
-                                                    </label>
-                                                </th>
-                                            </tr>
-
-                                            <tr>
-                                                <th>
-                                                    <label class="lyear-checkbox checkbox-primary">
-                                                        <input name="checkbox" type="checkbox" id="check-all">
-                                                        <span> 全选</span>
-                                                    </label>
-                                                </th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                <#if topMenus??>
-                                                    <#list topMenus as topMenu>
-                                                        <tr>
-                                                            <td>
-                                                                <label class="lyear-checkbox checkbox-primary">
-                                                                    <input name="authorities" type="checkbox" class="checkbox-parent" dataid="id-${topMenu.id}" value="${topMenu.id}">
-                                                                    <span> ${topMenu.name}</span>
-                                                                </label>
-                                                            </td>
-                                                        </tr>
-                                                        <#if secondMenus??>
-                                                            <#list secondMenus as secondMenu>
-                                                                <#if secondMenu.parent.id == topMenu.id>
-                                                                    <tr>
-                                                                        <td class="p-l-20">
-                                                                            <label class="lyear-checkbox checkbox-primary">
-                                                                                <input name="authorities" type="checkbox" class="checkbox-parent checkbox-child" dataid="id-${topMenu.id}-${secondMenu.id}" value="${secondMenu.id}">
-                                                                                <span> ${secondMenu.name}</span>
-                                                                            </label>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <#if thirdMenus??>
-                                                                        <tr>
-                                                                            <td class="p-l-40">
-                                                                                <#list thirdMenus as thirdMenu>
-                                                                                    <#if thirdMenu.parent.id == secondMenu.id>
-                                                                                        <label class="lyear-checkbox checkbox-primary checkbox-inline">
-                                                                                            <input name="authorities" type="checkbox" class="checkbox-child" dataid="id-${topMenu.id}-${secondMenu.id}-${thirdMenu.id}" value="${thirdMenu.id}">
-                                                                                            <span> ${thirdMenu.name}</span>
-                                                                                        </label>
-                                                                                    </#if>
-                                                                                </#list>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </#if>
-                                                                </#if>
-                                                            </#list>
-                                                        </#if>
-                                                    </#list>
-                                                </#if>
-                                            </tbody>
-                                        </table>
+                                    <div class="input-group input-group m-b-10">
+                                        <span class="input-group-addon">手机号码</span>
+                                        <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="" aria-describedby="sizing-addon3"/>
                                     </div>
 
-
-
                                     <div class="input-group input-group m-b-10">
-                                        状态&nbsp;&nbsp;
+                                        <span class="input-group-addon">邮箱账号</span>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="" aria-describedby="sizing-addon3"/>
+                                    </div>
+                                    <div class="input-group input-group m-b-10" style="margin-left: 30px;">
+                                        状&nbsp;&nbsp;&nbsp;&nbsp;态:
                                         <label class="lyear-radio radio-inline radio-primary">
                                             <input type="radio" name="status" value="1" checked="">
-                                            <span>启用</span>
+                                            <span>正常</span>
                                         </label>
 
                                         <label class="lyear-radio radio-inline radio-primary"/>
                                             <input type="radio" name="status"value="0">
-                                            <span>不启用</span>
+                                            <span>冻结</span>
                                         </label>
                                     </div>
 
-                                    <div class="input-group input-group m-b-10">
-                                            <span class="input-group-addon">备注</span>
-                                        <input type="text" class="form-control" id="remark" name="remark" placeholder="" aria-describedby="sizing-addon3"/>
+                                    <div class="input-group input-group m-b-10" style="margin-left: 30px;">
+                                        性&nbsp;&nbsp;&nbsp;&nbsp;别:
+                                        <label class="lyear-radio radio-inline radio-primary">
+                                            <input type="radio" name="sex" value="1" checked="">
+                                            <span>男</span>
+                                        </label>
+
+                                        <label class="lyear-radio radio-inline radio-primary"/>
+                                        <input type="radio" name="sex"value="2">
+                                        <span>女</span>
+                                        </label>
+
+                                        <label class="lyear-radio radio-inline radio-primary"/>
+                                        <input type="radio" name="sex"value="0">
+                                        <span>未知</span>
+                                        </label>
                                     </div>
+
+
 
 
                                     <div class="form-group col-md-12">
@@ -174,6 +148,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        //监听图片上传按钮
+        $("#add-pic-btn").click(function () {
+            $("#select-file").click();
+        });
+
         //图标选择后的确认按钮事件
         $("#confirm-icon-btn").click(function () {
             getSelectedIcon();
@@ -206,40 +186,33 @@
 
         });
 
-        //动态选择框，上下级选中状态变化
-        $('input.checkbox-parent').on('change', function(){
-            var dataid = $(this).attr("dataid");
-            $('input[dataid^=' + dataid + '-]').prop('checked', $(this).is(':checked'));
-        });
-        $('input.checkbox-child').on('change', function(){
-            var dataid = $(this).attr("dataid");
-            dataid = dataid.substring(0, dataid.lastIndexOf("-"));
-            var parent = $('input[dataid=' + dataid + ']');
-            if($(this).is(':checked')){
-                parent.prop('checked', true);
-                //循环到顶级
-                while(dataid.lastIndexOf("-") != 2){
-                    dataid = dataid.substring(0, dataid.lastIndexOf("-"));
-                    parent = $('input[dataid=' + dataid + ']');
-                    parent.prop('checked', true);
-                }
-            }else{
-                //父级
-                if($('input[dataid^=' + dataid + '-]:checked').length == 0){
-                    parent.prop('checked', false);
-                    //循环到顶级
-                    while(dataid.lastIndexOf("-") != 2){
-                        dataid = dataid.substring(0, dataid.lastIndexOf("-"));
-                        parent = $('input[dataid=' + dataid + ']');
-                        if($('input[dataid^=' + dataid + '-]:checked').length == 0){
-                            parent.prop('checked', false);
-                        }
-                    }
-                }
-            }
-        });
     });
 
+    function upload() {
+        var formData = new FormData();
+        formData.append("photo",document.getElementById("select-file").files[0]);
+        $.ajax({
+            url:'/upload/upload_photo',
+            contentType: false,
+            processData: false,
+            data:formData,
+            type:'POST',
+            success:function(data){
+                if(data.code == 0){
+                    showSuccessMsg('图片上传成功',function () {
+                        $("#show-picture-img").attr('src','/photo/view?filename='+data.data);
+                        $("#headPic").val(data.data);
+                    });
+
+                }else{
+                    showErrorMsg(data.msg);
+                }
+            },
+            error:function(data){
+                alert('网络错误!');
+            }
+        });
+    }
 
 </script>
 </body>
