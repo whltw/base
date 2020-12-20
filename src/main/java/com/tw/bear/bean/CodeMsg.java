@@ -58,7 +58,9 @@ public class CodeMsg {
     public static final CodeMsg ADMIN_USER_ROLE_EMPTY = new CodeMsg(-6001,"用户所属角色为空!");
     public static final CodeMsg ADMIN_USER_EXIST = new CodeMsg(-6002,"用户已存在，请重新输入!");
     public static final CodeMsg ADMIN_USER_ADD_FAIL = new CodeMsg(-6003,"用户添加失败，请联系管理员!");
-
+    public static final CodeMsg ADMIN_USER_EDIT_FAIL = new CodeMsg(-6005,"当前用户编辑失败，请联系管理员!");
+    public static final CodeMsg ADMIN_USER_DELETE_FAIL = new CodeMsg(-6006,"当前用户删除失败，请联系管理员!");
+    public static final CodeMsg ADMIN_USER_DELETE_STATUS_IS_ERROR = new CodeMsg(-6006,"当前用户状态错误，无法删除，请先冻结状态!");
 
     public void setCode(int code) {
         this.code = code;

@@ -241,7 +241,7 @@
     //方法
     function deleteReq(id){
         $.ajax({
-            url:"/role/delete",
+            url:"/user/delete",
             type:'POST',
             data:{id:id},
             dataType:'json',

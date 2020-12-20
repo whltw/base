@@ -45,4 +45,8 @@ public class UserService {
     public User findById(Long id){
         return userDao.find(id);
     }
+
+    public void delete(long id){
+        userDao.deleteById(id);
+    }
 }
