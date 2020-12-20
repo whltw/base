@@ -25,7 +25,7 @@ public class User extends BaseEntity{
     private static final  int ADMIN_USER_STATUS_DISABLE = 0; //用户状态不可用
     @ValidateEntity(required = true,requiredLength =true,minLength = 4,maxLength = 18,errorRequiredMsg = "用户名不能为空",
             errorMaxLengthMsg = "用户名长度最大不能超过18",errorMinLengthMsg = "用户名长度最小不能小于4")
-    @Column(name = "username",nullable = false,length = 18)
+    @Column(name = "username",nullable = false,length = 18,unique = true)
     private String username;
 
     @ValidateEntity(required = true,requiredLength =true,minLength = 6,maxLength = 18,errorRequiredMsg = "密码不能为空",

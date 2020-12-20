@@ -95,7 +95,7 @@ public class RoleController {
             roleService.delete(id);
         }catch (Exception e){
             log.error(e.getStackTrace().toString());
-            return Result.error(CodeMsg.ADMIN__ROLE_DELETE_ERROR);
+            return Result.error(CodeMsg.ADMIN_ROLE_DELETE_ERROR);
         }
         //保存操作成功,记录日志
         User user = (User) request.getSession().getAttribute("user");

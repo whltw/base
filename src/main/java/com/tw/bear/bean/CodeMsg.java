@@ -49,10 +49,16 @@ public class CodeMsg {
     public static final CodeMsg ADMIN__ROLE_ADD_ERROR = new CodeMsg(-5000,"角色添加失败,请联系管理员!");
     public static final CodeMsg ADMIN_ROLE_NO_EXIST = new CodeMsg(-5001,"角色不存在,请联系管理员!");
     public static final CodeMsg ADMIN__ROLE_EDIT_ERROR = new CodeMsg(-5002,"角色编辑失败,请联系管理员!");
-    public static final CodeMsg ADMIN__ROLE_DELETE_ERROR = new CodeMsg(-5003,"该角色存在用户信息绑定,请先删除用户!");
+    public static final CodeMsg ADMIN_ROLE_DELETE_ERROR = new CodeMsg(-5003,"该角色存在用户信息绑定,请先删除用户!");
     public int getCode() {
         return code;
     }
+
+    //用户管理类错误码
+    public static final CodeMsg ADMIN_USER_ROLE_EMPTY = new CodeMsg(-6001,"用户所属角色为空!");
+    public static final CodeMsg ADMIN_USER_EXIST = new CodeMsg(-6002,"用户已存在，请重新输入!");
+    public static final CodeMsg ADMIN_USER_ADD_FAIL = new CodeMsg(-6003,"用户添加失败，请联系管理员!");
+
 
     public void setCode(int code) {
         this.code = code;
