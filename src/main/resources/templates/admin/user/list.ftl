@@ -95,7 +95,15 @@
                                                             <input type="checkbox" name="ids[]" value="${user.id}"><span></span>
                                                         </label>
                                                     </td>
-                                                    <td style="vertical-align:middle;"><b>${user.headPic}</b></td>
+                                                    <td style="vertical-align:middle;">
+                                                        <#if user.headPic??>
+                                                            <#if user.headPic?length gt 0>
+                                                                <img src="/photo/view?filename=${user.headPic!""}" width="100px" height="100px"/></td>
+                                                            <#else>
+                                                                <img src="/admin/images/default-head.jpg" width="100px" height="100px"/></td>
+                                                            </#if>
+                                                        </#if>
+
                                                     <td style="vertical-align:middle;"><b>${user.username}</b></td>
                                                     <td style="vertical-align:middle;"><b>${user.role.name}</b></td>
                                                     <td style="vertical-align:middle;">
@@ -118,7 +126,7 @@
 
                                                     <td style="vertical-align:middle;">${user.mobile}</td>
                                                     <td style="vertical-align:middle;">${user.email}</td>
-                                                    <td><font class="text-success">${user.createTime}</font></td>
+                                                    <td style="vertical-align:middle;"><font class="text-success">${user.createTime}</font></td>
                                                     <#--                                                    <td>-->
                                                     <#--                                                        <div class="btn-group">-->
                                                     <#--                                                            <a class="btn btn-xs btn-default" href="javascript:edit(${topMenu.id})" title="编辑" data-toggle="tooltip"><i class="mdi mdi-pencil"></i></a>-->

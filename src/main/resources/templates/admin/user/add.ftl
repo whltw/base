@@ -72,7 +72,7 @@
 
                                     <div class="input-group input-group m-b-10">
                                         <span class="input-group-addon">所属角色</span>
-                                        <select name="parent.id" class="form-control" id="type">
+                                        <select name="role.id" class="form-control" id="role">
                                             <#list roles as role>
                                                 <option value="${role.id}">${role.name}</option>
                                             </#list>
@@ -165,7 +165,7 @@
                 return;
             var data = $("#role-add-form").serialize();
             $.ajax({
-                url:'/role/add',
+                url:'/user/add',
                 type:'POST',
                 data:data,
                 dataType:'json',
